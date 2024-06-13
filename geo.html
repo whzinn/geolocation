@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização com Firebase</title>
+    <script src="https://www.gstatic.com/firebase/js/7.24.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebase/js/7.24.2/firebase-database.js"></script>
+    <script>
+        // Inicialize o Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXal4EpjRrRwbw3ZbOgCp37SwZhntDs6w",
+            authDomain: "relacionamento-d2f2a.firebaseapp.com",
+            databaseURL: "https://relacionamento-d2f2a-default-rtdb.firebaseio.com/",
+            projectId: "relacionamento-d2f2a",
+            storageBucket: "relacionamento-d2f2a.appspot.com",
+            messagingSenderId: "315669792394",
+            appId: "1:315669792394:web:ec4d1689f1e9ea682a4f73"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Obtenha a referência ao banco de dados
+        const database = firebase.database();
+
+        // Obtenha a localização do usuário
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Salve os dados da geolocalização no Firebase
+            database.ref('localizacoes').push({
+                latitude: latitude,
+                longitude: longitude
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Geolocalização com Firebase</h1>
+    <p>Sua localização foi salva no Firebase!</p>
+</body>
+</html>
